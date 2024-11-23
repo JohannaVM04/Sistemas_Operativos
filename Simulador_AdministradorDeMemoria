@@ -1,0 +1,108 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_PARTICIONES 100
+
+typedef struct {
+    int id;
+    int tamaño;
+    int ocupado;
+} Particion;
+
+void mostrarEstado(Particion particiones[], int numParticiones) {
+    printf("\nEstado de la memoria:\n");
+    printf("===================================\n");
+    for (int i = 0; i < numParticiones; i++) {
+        printf("Partición %d: Tamaño = %d, %s\n",
+               i + 1,
+               particiones[i].tamaño,
+               particiones[i].ocupado ? "Ocupado" : "Libre");
+    }
+    printf("===================================\n");
+}
+
+int main() {
+    int tamañoMemoria;
+    int numParticiones;
+    Particion particiones[MAX_PARTICIONES];
+    
+    printf("Ingrese el tamaño total de la memoria: ");
+    scanf("%d", &tamañoMemoria);
+
+    printf("Ingrese el número de particiones: ");
+    scanf("%d", &numParticiones);
+
+    if (numParticiones > MAX_PARTICIONES) {
+        printf("El número máximo de particiones permitidas es %d.\n", MAX_PARTICIONES);
+        return 1;
+    }
+
+    int tamañoParticion = tamañoMemoria / numParticiones;
+
+    for (int i = 0; i < numParticiones; i++) {
+        particiones[i].id = i + 1;
+        particiones[i].tamaño = tamañoParticion;
+        particiones[i].ocupado = 0;
+    }
+
+    int opcion;
+    do {
+        printf("\nMenú:\n");
+        printf("1. Asignar un proceso a una partición\n");
+        printf("2. Liberar una partición\n");
+        printf("3. Mostrar estado de la memoria\n");
+        printf("4. Salir\n");
+        printf("Seleccione una opción: ");
+        scanf("%d", &opcion);
+
+        switch (opcion) {
+            case 1: {
+                int idProceso, tamañoProceso;
+                printf("Ingrese el ID del proceso: ");
+                scanf("%d", &idProceso);
+                printf("Ingrese el tamaño del proceso: ");
+                scanf("%d", &tamañoProceso);
+
+                int asignado = 0;
+                for (int i = 0; i < numParticiones; i++) {
+                    if (!particiones[i].ocupado && particiones[i].tamaño >= tamañoProceso) {
+                        particiones[i].ocupado = 1;
+                        printf("Proceso %d asignado a la partición %d.\n", idProceso, i + 1);
+                        asignado = 1;
+                        break;
+                    }
+                }
+                if (!asignado) {
+                    printf("No hay particiones disponibles para el proceso %d.\n", idProceso);
+                }
+                break;
+            }
+            case 2: {
+                int idParticion;
+                printf("Ingrese el número de la partición a liberar: ");
+                scanf("%d", &idParticion);
+
+                if (idParticion < 1 || idParticion > numParticiones) {
+                    printf("Número de partición inválido.\n");
+                } else if (!particiones[idParticion - 1].ocupado) {
+                    printf("La partición %d ya está libre.\n", idParticion);
+                } else {
+                    particiones[idParticion - 1].ocupado = 0;
+                    printf("Partición %d liberada.\n", idParticion);
+                }
+                break;
+            }
+            case 3:
+                mostrarEstado(particiones, numParticiones);
+                break;
+            case 4:
+                printf("Saliendo del programa.\n");
+                break;
+            default:
+                printf("Opción no válida.\n");
+        }
+    } while (opcion != 4);
+
+    return 0;
+}
