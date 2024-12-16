@@ -1,4 +1,4 @@
-# Concepto y noción de archivo real y virtual
+# Ejercicio 1: Concepto y noción de archivo real y virtual
 ## 1. Define el concepto de archivo real y archivo virtual
 
 Primero debemos saber que un archivo en S.O. es una forma de representar y gestionar los datos de un sistema. Un **archivo real** es 
@@ -22,5 +22,13 @@ dispersos en el disco duro y la RAM.
 ### 4. Sistemas de archivos virtuales
  - **Archivo Real:** Los archivos almacenados en un disco duro o una unidad SSD son archivos reales que existen físicamente.
  - **Archivo Virtual:** El VFS permite a los sistemas operativos acceder a diferentes tipos de sistemas de archivos (como ext4, NTFS, FAT32) de manera uniforme. Los archivos virtuales en un VFS son abstracciones que el sistema operativo trata de forma consistente, sin importar dónde se almacenen físicamente.
+
+## 3. Explica un caso práctico donde un archivo virtual sea más util que un archivo real
+
+Suponiendo que en una empresa se necesitan usar varios sistemas operativos y diferentes tipos de almacenamiento. Algunos servidores trabajan con Linux(ext4), con Windows(NTFS) y además con dispositivos externos con sistemas FAT32. La gestión de datos y archivos a través de estos distintos sistemas puede ser compleja y propensa a sufrir errores.
+
+Si hacemos esto con archivos reales sin un VFS, cada sistema operativo tiene que gestionar directamente los archivos reales en cada sistema de archivos diferentes, lo cual se traduce en utilizar diferentes comandos, herramientas, gestionar permisos y características específicas en cada sistema de archivos, aparte de que se aumentaría la complejidad para sincronizar datos entre sistemas diferentes.
+
+Esto se soluciona con archivos virtuales, ya que permite a los administradores crear una capa de abstracción que permite acceder a archivos de diferentes sistemas de archivos de manera uniforme. Es más simple ya que los usuarios y aplicaciones pueden acceder a los archivos sin preocuparse por el tipo de sistema de archivos en el que están almacenado físicamente. También es más flexible ya que puede montar dispositivos de almacenamiento con diferentes sistemas de archivos de forma trasparente y es más eficaz, porque el VFS puede optimizar el acceso y la gestión de archivos. Otras ventajas de usar archivos virtuales es la uniformidad en la interfaz y minimiza la posibilidad de errores al unificar la forma en que se manejan los archivos
 
 
