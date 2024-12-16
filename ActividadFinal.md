@@ -31,4 +31,19 @@ Si hacemos esto con archivos reales sin un VFS, cada sistema operativo tiene que
 
 Esto se soluciona con archivos virtuales, ya que permite a los administradores crear una capa de abstracción que permite acceder a archivos de diferentes sistemas de archivos de manera uniforme. Es más simple ya que los usuarios y aplicaciones pueden acceder a los archivos sin preocuparse por el tipo de sistema de archivos en el que están almacenado físicamente. También es más flexible ya que puede montar dispositivos de almacenamiento con diferentes sistemas de archivos de forma trasparente y es más eficaz, porque el VFS puede optimizar el acceso y la gestión de archivos. Otras ventajas de usar archivos virtuales es la uniformidad en la interfaz y minimiza la posibilidad de errores al unificar la forma en que se manejan los archivos
 
+# Ejercicio 2: Componentes de un sistema de archivos
+## 1. Identifica los componentes clave de un sistema de archivos(por ejemplo metadatos, tablas de asignación, etc).
+## 2. Crea un cuadro comparativo de cómo estos componentes funcionan en sistemas como EXT4 y NTFS
+## 3. Escribe las ventajas y desventajas de cada sistema basado en sus componentes
 
+# Ejercicio 3: Organización lógica y física de archivos
+## 1. Diseña un árbol jerárquico que represente la organización lógica de directorios y subdirectorios
+## 2. Explica cómo se traduce la dirección lógica a la dirección física en un disco
+## 3. Proporciona un ejemplo práctico de cómo un archivo se almacena físicamente
+
+# Ejercicio 4: Mecanismo de acceso a los archivos
+## 1. Define los diferentes mecanismos de acceso
+## 2. Escribe un pseudocógigo que muestre cómo acceder a:
+ - Un archivo secuencialmente
+ - Un archivo mediantemente su posición
+ - Un archivo utilizando un índice
