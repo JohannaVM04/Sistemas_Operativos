@@ -33,8 +33,63 @@ Esto se soluciona con archivos virtuales, ya que permite a los administradores c
 
 # Ejercicio 2: Componentes de un sistema de archivos
 ## 1. Identifica los componentes clave de un sistema de archivos(por ejemplo metadatos, tablas de asignación, etc).
+
+1. Metadatos: en un contexto de sistemas de archivos, son datos sobre datos, incluyen nombre del archivo, tamaño, fecha de creación, modificación, permisos de acceso y propietario. Los metadatos no contienen los datos reales del archivo, pero cuentan con información suficiente para poder manejarlo.
+   
+2. Tablas de asignación:
+- Tablas de asignación de archivos(FAT): Es una tabla que mapea clústeres (bloques de almacenamiento) en el disco a archivos específicos además de registrar qué bloques están libres y cuales en uso; ejemplos de estos son FAT16 y FAT32.
+- Tablas de Asignación de Inodos: los inodos contienen toda la información sobre un archivo excepto su nombre y los datos reales. Se utiliza para encontrar los datos asociados a un archivo. Estos se utilizan en sistemas como ext4 para Linux.
+  
+3. Inodos: podemos definirlos como una estructura de datos que almacena información sobre un archivo o directorio. Estos contienen información como el tamaño, permisos, quién es el propietario, marcas de tiempo u punteros a los bloques, generalmente utilizados en Unix/Linux
+   
+4. Directorios: son estructuras jerárquicas que organizan los archivos en el sistema. También puede ser un tipo de dato especial que referencia a otros archivos e inodos. Cada directorio contiene una lista de archivos y subdirectorios, permitiendo una organización estructurada y lógica de la información
+
+5. Bloques de datos: unidades básicas de almacenamiento en un sistema de archivos, se encarga de la asignación y gestión de bloques de datos, asegurando que estos serán guardados y recuperados sin fallas.
+
+6. Mecanismos de integridad: existen diferentes mecanismos como las sumas de verificación, el Cyclic Redundancy Check y algoritmos de detección de errores que buscan que los datos no se corrompan durante un proceso de almacenamiento o la trasferencia 
+
+7. Administración de Almacenamiento secundario: son técnicas y algoritmos que se utilizan para gestionar el espacio en disco; se encarga de la asignación de bloques a archivos, recuperación de bloques libres y fragmentación.
+
+8. Métodos de acceso: es la forma en que se acceden y recuperan datos en los sistemas de archivo y pueden ser de dos formas:
+- Acceso secuencial: los datos se leen/escriben en orden específico
+- Acceso aleatorio: se leen/escriben en cualquier orden (por lo general esto hace que sea más rápido y flexible)
+  
 ## 2. Crea un cuadro comparativo de cómo estos componentes funcionan en sistemas como EXT4 y NTFS
+| Componente | EXT4 | NTFS |
+|----------|----------|----------|
+|Metadatos|Utiliza inodos para almacenar información sobre archivos|Utiliza MFT (Master File Table) para almacenar metadatos.|
+|Tablas de asiganción|Tabla de inodos para mapear archivos a bloques de datos.|MFT con registros detallados para cada archivo.|
+|Inodos|Cada archivo tiene un inodo único con información detallada.|NTFS no utiliza inodos; toda la información se almacena en la MFT.|
+|Directorios|Estructura jerárquica con entradas de directorio apuntando a inodos|Estructura jerárquica con entradas de directorio en la MFT.|
+|Bloques de datos|Tamaño configurable (por ejemplo, 4KB).|Usa clústeres|
+|Mecanismos de integridad|Journaling para minimizar la corrupción de datos.|Journaling y Recovery Log para recuperación de fallos.|
+|Administrador de almacenamiento|Extents para asignación de bloques continuos y reducir la fragmentación.|Extents y B-trees para manejar grandes archivos y reducir la fragmentación.|
+|Métodos de acceso|Soporte para acceso secuencial y aleatorio.|Soporte para acceso secuencial y aleatorio, con características avanzadas como la compresión y el cifrado.|
+
 ## 3. Escribe las ventajas y desventajas de cada sistema basado en sus componentes
+### EXT4
+ Ventajas:
+ - Journaling: Mejora la integridad de los datos al registrar las operaciones antes de aplicarlas.
+ - Extents: Reduce la fragmentación y mejora el rendimiento al asignar bloques continuos a archivos grandes.
+ - Compatibilidad: Ampliamente soportado en sistemas basados en Linux.
+ - Eficiencia: Buena gestión del espacio y rápido acceso a los datos.
+   
+ Desventajas:
+ - Journaling: Puede añadir una sobrecarga de E/S, lo que puede afectar el rendimiento en algunos casos.
+ - Tamaño Máximo del Archivo: Aunque soporta archivos grandes, tiene límites comparados con otros sistemas de archivos más avanzados.
+ - Fragmentación: A pesar de los extents, puede sufrir fragmentación con el tiempo, aunque menos que sistemas más antiguos como ext3.
+
+### NTFS
+ Ventajas:
+ - Seguridad: Soporte avanzado para permisos y cifrado de archivos.
+ - Journaling: Minimiza la corrupción de datos y facilita la recuperación tras fallos.
+ - Compresión y Cifrado: Funciones integradas que permiten optimizar el uso del espacio y asegurar los datos.
+ - Flexibilidad: Soporta grandes volúmenes de almacenamiento y archivos de gran tamaño.
+   
+ Desventajas:
+ - Compatibilidad: Menos soporte nativo en sistemas que no sean Windows.
+ - Complejidad: Mayor complejidad en la administración de permisos y características avanzadas.
+ - Sobrecarga: Las funcionalidades avanzadas como el journaling y el cifrado pueden introducir una sobrecarga adicional en el sistema.
 
 # Ejercicio 3: Organización lógica y física de archivos
 ## 1. Diseña un árbol jerárquico que represente la organización lógica de directorios y subdirectorios
