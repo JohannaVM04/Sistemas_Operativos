@@ -34,23 +34,23 @@ Esto se soluciona con archivos virtuales, ya que permite a los administradores c
 # Ejercicio 2: Componentes de un sistema de archivos
 ## 1. Identifica los componentes clave de un sistema de archivos(por ejemplo metadatos, tablas de asignación, etc).
 
-1. Metadatos: en un contexto de sistemas de archivos, son datos sobre datos, incluyen nombre del archivo, tamaño, fecha de creación, modificación, permisos de acceso y propietario. Los metadatos no contienen los datos reales del archivo, pero cuentan con información suficiente para poder manejarlo.
+1. **Metadatos:** en un contexto de sistemas de archivos, son datos sobre datos, incluyen nombre del archivo, tamaño, fecha de creación, modificación, permisos de acceso y propietario. Los metadatos no contienen los datos reales del archivo, pero cuentan con información suficiente para poder manejarlo.
    
-2. Tablas de asignación:
+2. **Tablas de asignación:**
 - Tablas de asignación de archivos(FAT): Es una tabla que mapea clústeres (bloques de almacenamiento) en el disco a archivos específicos además de registrar qué bloques están libres y cuales en uso; ejemplos de estos son FAT16 y FAT32.
 - Tablas de Asignación de Inodos: los inodos contienen toda la información sobre un archivo excepto su nombre y los datos reales. Se utiliza para encontrar los datos asociados a un archivo. Estos se utilizan en sistemas como ext4 para Linux.
   
-3. Inodos: podemos definirlos como una estructura de datos que almacena información sobre un archivo o directorio. Estos contienen información como el tamaño, permisos, quién es el propietario, marcas de tiempo u punteros a los bloques, generalmente utilizados en Unix/Linux
+3. **Inodos:** podemos definirlos como una estructura de datos que almacena información sobre un archivo o directorio. Estos contienen información como el tamaño, permisos, quién es el propietario, marcas de tiempo u punteros a los bloques, generalmente utilizados en Unix/Linux
    
-4. Directorios: son estructuras jerárquicas que organizan los archivos en el sistema. También puede ser un tipo de dato especial que referencia a otros archivos e inodos. Cada directorio contiene una lista de archivos y subdirectorios, permitiendo una organización estructurada y lógica de la información
+4. **Directorios:** son estructuras jerárquicas que organizan los archivos en el sistema. También puede ser un tipo de dato especial que referencia a otros archivos e inodos. Cada directorio contiene una lista de archivos y subdirectorios, permitiendo una organización estructurada y lógica de la información
 
-5. Bloques de datos: unidades básicas de almacenamiento en un sistema de archivos, se encarga de la asignación y gestión de bloques de datos, asegurando que estos serán guardados y recuperados sin fallas.
+5. **Bloques de datos:** unidades básicas de almacenamiento en un sistema de archivos, se encarga de la asignación y gestión de bloques de datos, asegurando que estos serán guardados y recuperados sin fallas.
 
-6. Mecanismos de integridad: existen diferentes mecanismos como las sumas de verificación, el Cyclic Redundancy Check y algoritmos de detección de errores que buscan que los datos no se corrompan durante un proceso de almacenamiento o la trasferencia 
+6. **Mecanismos de integridad:** existen diferentes mecanismos como las sumas de verificación, el Cyclic Redundancy Check y algoritmos de detección de errores que buscan que los datos no se corrompan durante un proceso de almacenamiento o la trasferencia 
 
-7. Administración de Almacenamiento secundario: son técnicas y algoritmos que se utilizan para gestionar el espacio en disco; se encarga de la asignación de bloques a archivos, recuperación de bloques libres y fragmentación.
+7. **Administración de Almacenamiento secundario:** son técnicas y algoritmos que se utilizan para gestionar el espacio en disco; se encarga de la asignación de bloques a archivos, recuperación de bloques libres y fragmentación.
 
-8. Métodos de acceso: es la forma en que se acceden y recuperan datos en los sistemas de archivo y pueden ser de dos formas:
+8. **Métodos de acceso:** es la forma en que se acceden y recuperan datos en los sistemas de archivo y pueden ser de dos formas:
 - Acceso secuencial: los datos se leen/escriben en orden específico
 - Acceso aleatorio: se leen/escriben en cualquier orden (por lo general esto hace que sea más rápido y flexible)
   
@@ -93,12 +93,159 @@ Esto se soluciona con archivos virtuales, ya que permite a los administradores c
 
 # Ejercicio 3: Organización lógica y física de archivos
 ## 1. Diseña un árbol jerárquico que represente la organización lógica de directorios y subdirectorios
+
+- /
+  - bin
+    - listar
+    - consola
+      
+  - arranque
+    - núcleo_linux
+    - imagen_init
+      
+  - dispositivos
+    - disco_sda
+    - terminal_tty
+      
+  - configuración
+    - contraseñas
+    - tabla_sistema_archivos
+      
+  - usuarios
+    - usuario1
+      - documentos
+      - imágenes
+        
+    - usuario2
+      - documentos
+      - imágenes
+        
+  - librerías
+    - libc.so.6
+    - libm.so.6
+      
+  - medios
+    - cdrom
+    - usb
+  - montaje
+    - respaldo
+    - datos
+      
+  - opcional
+    - software1
+    - software2
+      
+  - procesos
+    - 1
+    - 2
+      
+  - raíz
+    - documentos
+      
+  - ejecución
+    - usuarios_activos
+      
+  - binarios de sistema
+    - configurar_red
+    - apagar_sistema
+      
+  - servicios
+    - web
+    - ftp
+  - temporal
+    
+  - usuarios_sistema
+    - bin
+      - editor_vim
+      - compilador_gcc
+        
+    - librerías
+      - libpython2.7.so
+      - libperl.so
+    
+    - local
+      - bin
+      - librerías
+        
+    - compartir
+      - documentos
+      - manuales
+        
+  - variable
+    - registros
+    - correo
+    - cola
+   
 ## 2. Explica cómo se traduce la dirección lógica a la dirección física en un disco
+1. Paso 1: Dirección Lógica
+La dirección lógica es una referencia abstracta a una ubicación de datos utilizada por los programas y el sistema operativo. Esta dirección no está vinculada directamente a una ubicación física en el disco. Las direcciones lógicas son manejadas por el sistema de archivos y proporcionan una forma conveniente y unificada de referirse a los datos.
+
+2. Paso 2: Sistema de Archivos y Tabla de Asignación
+El sistema de archivos utiliza estructuras de datos como la Tabla de Asignación de Archivos (FAT) en FAT32 o la Tabla de Inodos en ext4 para mapear las direcciones lógicas a direcciones físicas. Estas tablas contienen información sobre qué bloques de datos en el disco corresponden a cada archivo o dirección lógica.
+
+3. Paso 3: Dirección Física
+La dirección física es la ubicación real en el disco donde se almacenan los datos. Esta dirección se refiere a un cilindro, pista y sector específicos en el disco, o a un clúster en un SSD.
+
+4. Paso 4: Proceso de Traducción
+ - Solicitudes de Lectura/Escritura: Cuando una aplicación necesita acceder a datos, envía una solicitud al sistema operativo utilizando una dirección lógica.
+ - Sistema de Archivos: El sistema de archivos recibe la solicitud y consulta la Tabla de Asignación o Tabla de Inodos para determinar qué bloques físicos contienen los datos correspondientes a la dirección lógica.
+ - Controlador de Disco: Una vez identificados los bloques físicos, el sistema de archivos envía la solicitud al controlador de disco, que se encarga de interactuar con el hardware del disco.
+ - Acceso al Disco: El controlador de disco traduce la dirección física a comandos específicos para el hardware, indicando al disco que lea o escriba en las ubicaciones físicas especificadas.
+
 ## 3. Proporciona un ejemplo práctico de cómo un archivo se almacena físicamente
+
+1. Dirección Lógica: Un archivo tiene la dirección lógica 1000.
+2. Tabla de Asignación: La tabla muestra que la dirección lógica 1000 corresponde a los bloques físicos Cilindro 4, Pista 5, Sector 6 en un disco HDD.
+3. Controlador de Disco: El controlador traduce estos valores a comandos para posicionar el cabezal de lectura/escritura en el lugar correcto del disco.
+4. Acceso al Disco: Los datos se leen o escriben en la ubicación física especificada, completando la operación solicitada por la aplicación.
 
 # Ejercicio 4: Mecanismo de acceso a los archivos
 ## 1. Define los diferentes mecanismos de acceso
+Los mecanismos de acceso son utilizados para el manejo de la seguridad y gestión de los sistemas. 
+
+1. Control de Acceso Discrecional (DAC): es un mecanismo que teniendo un propietario de un recurso (esto puede ser un archivo o directorio) decide a quien le va a dar permisos y quien puede acceder a él. Este mecanismo es flexible y puedes tener un control por parte del propietario, el problema es que es difícil de manejar cuando hay muchos usuarios y recursos que manejar.
+2. Control de acceso basado en roles (RBAC): En este, los permisos se asignan a los usuarios dependiendo qué rol se les fue asignado. Usarlo simplifica el cómo se dan los permisos y es más útil cuando tenemos muchos usuarios; el problema que puede presentar es que ya tiene los roles predefinidos, por lo que es menos flexible que el DAC
+3. Control de acceso Obligatorio (MAC): en este mecanismo, los accesos se van dando según las políticas de seguridad y ya no se pueden modificar por los propietarios; utilizar este mecanismo tiene un alto nivel de seguridad y consistencia en la aplicación de políticas, el problema es que tiene menor flexibilidad, además de que es más complejo de implementar y gestionar.
+4. Control de Acceso Biométrico: utilizamos características físicas de una persona como huellas dactilares para poder autentificar su identidad. Este mecanismo es de alta precisión y dificultad de falsificación, lo malo es que puede ser costoso y generar preocupaciones sobre la privacidad.
+5. Control de acceso por tarjeta RFID: se utilizan tarjetas RFID para identificar a los usuarios, es mucho más sencillo de usar y se puede integrar con otros sistemas de seguridad, lo malo es que es vulnerable a la clonación o robo.
+6. Control de acceso por contraseña: en este mecanismo utilizamos contraseñas para autentificar a los usuarios, es simple de usar, pero las contraseñas son vulnerables a ataques.
+
 ## 2. Escribe un pseudocógigo que muestre cómo acceder a:
  - Un archivo secuencialmente
+    ```plaintext
+    Abrir archivo en modo lectura como archivo
+    Mientras archivo NO haya llegado al final
+    Leer línea del archivo
+    Mostrar línea
+    FinMientras
+    Cerrar archivo
+    ```
  - Un archivo mediantemente su posición
+     ```plaintext
+     Abrir archivo en modo lectura como archivo
+     Posicionar cursor del archivo en la posición P (por ejemplo, byte P)
+     Leer N bytes desde la posición actual
+     Mostrar datos leídos
+     Cerrar archivo
+    ```
  - Un archivo utilizando un índice
+    ```plaintext
+       Abrir archivo de índice en modo lectura como índice
+       Abrir archivo de datos en modo lectura como archivo
+       Leer índice y encontrar la posición P correspondiente al registro deseado
+       Posicionar cursor del archivo de datos en posición P
+       Leer registro desde la posición P
+       Mostrar datos del registro
+       Cerrar archivo de índice
+       Cerrar archivo de datos
+    ```
+
+## 3. Compara las ventajas de cada mecanismo dependiendo del caso de uso
+
+| Mecanismo                 | Ventajas                                                                               | Casos de Uso                                                                               |
+|---------------------------|----------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| **Acceso Secuencial**     | Simplicidad, eficiencia en lecturas completas, bajo costo de configuración              | Procesamiento de logs, lectura de archivos completos, análisis de datos históricos          |
+| **Acceso por Posición**   | Acceso rápido a datos específicos, flexibilidad                                         | Bases de datos de registros, edición de archivos, lectura de índices o tablas de contenidos |
+| **Acceso Utilizando un Índice** | Eficiencia en búsqueda y recuperación, gestión eficiente de datos                     | DBMS, aplicaciones de búsqueda de datos, grandes volúmenes de datos                        |
+
+# Ejercicio 5 : Modelo jerárquico y mecanismos de recuperación en caso de falla
