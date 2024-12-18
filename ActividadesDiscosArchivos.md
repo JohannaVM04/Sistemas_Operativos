@@ -148,3 +148,36 @@ sudo: umount/usb: orden no encontrada
 johanna-velasco@johanna-velasco-VirtualBox:~$ sudo umount /mnt/usb 
 
 ## Ejercicio 2 : Redirección de Entrada y Salida
+
+johanna-velasco@johanna-velasco-VirtualBox:~$ ls -l > listado.txt
+johanna-velasco@johanna-velasco-VirtualBox:~$ cat listado.txt
+total 40
+-rw-rw-r-- 1 johanna-velasco johanna-velasco   13 dic 18 17:49 archivo.txt
+drwxr-xr-x 2 johanna-velasco johanna-velasco 4096 oct 30 14:19 Descargas
+drwxr-xr-x 3 johanna-velasco johanna-velasco 4096 nov  6 20:50 Documentos
+drwxr-xr-x 2 johanna-velasco johanna-velasco 4096 oct 30 14:19 Escritorio
+drwxr-xr-x 3 johanna-velasco johanna-velasco 4096 nov 21 14:31 Imágenes
+-rw-rw-r-- 1 johanna-velasco johanna-velasco    0 dic 18 17:55 listado.txt
+drwxr-xr-x 2 johanna-velasco johanna-velasco 4096 oct 30 14:19 Música
+drwxr-xr-x 2 johanna-velasco johanna-velasco 4096 oct 30 14:19 Plantillas
+drwxr-xr-x 2 johanna-velasco johanna-velasco 4096 oct 30 14:19 Público
+drwx------ 6 johanna-velasco johanna-velasco 4096 oct 31 14:43 snap
+drwxr-xr-x 2 johanna-velasco johanna-velasco 4096 oct 30 14:19 Vídeos
+johanna-velasco@johanna-velasco-VirtualBox:~$ date >>listado.yxy
+johanna-velasco@johanna-velasco-VirtualBox:~$ date >>listado.txt
+johanna-velasco@johanna-velasco-VirtualBox:~$ cat listado.txt
+total 40
+-rw-rw-r-- 1 johanna-velasco johanna-velasco   13 dic 18 17:49 archivo.txt
+drwxr-xr-x 2 johanna-velasco johanna-velasco 4096 oct 30 14:19 Descargas
+drwxr-xr-x 3 johanna-velasco johanna-velasco 4096 nov  6 20:50 Documentos
+drwxr-xr-x 2 johanna-velasco johanna-velasco 4096 oct 30 14:19 Escritorio
+drwxr-xr-x 3 johanna-velasco johanna-velasco 4096 nov 21 14:31 Imágenes
+-rw-rw-r-- 1 johanna-velasco johanna-velasco    0 dic 18 17:55 listado.txt
+drwxr-xr-x 2 johanna-velasco johanna-velasco 4096 oct 30 14:19 Música
+drwxr-xr-x 2 johanna-velasco johanna-velasco 4096 oct 30 14:19 Plantillas
+drwxr-xr-x 2 johanna-velasco johanna-velasco 4096 oct 30 14:19 Público
+drwx------ 6 johanna-velasco johanna-velasco 4096 oct 31 14:43 snap
+drwxr-xr-x 2 johanna-velasco johanna-velasco 4096 oct 30 14:19 Vídeos
+mié 18 dic 2024 17:55:44 CST
+johanna-velasco@johanna-velasco-VirtualBox:~$ 
+
