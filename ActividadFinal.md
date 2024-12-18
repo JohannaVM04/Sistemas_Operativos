@@ -249,3 +249,69 @@ Los mecanismos de acceso son utilizados para el manejo de la seguridad y gestió
 | **Acceso Utilizando un Índice** | Eficiencia en búsqueda y recuperación, gestión eficiente de datos                     | DBMS, aplicaciones de búsqueda de datos, grandes volúmenes de datos                        |
 
 # Ejercicio 5 : Modelo jerárquico y mecanismos de recuperación en caso de falla
+
+## 1. Explica el concepto de protección basada en el lenguaje
+
+Es un mecanismo de seguridad que utiliza el lenguaje de programación para determinar y controlar los permisos de acceso 
+a recursos del sistema, esto implica que el sistema operativo y las aplicaciones que se ejecutan en él pueden restringir el acceso a ciertos recursos (como archivos, memoria, dispositivos) según el lenguaje en el que se escribió el código. Esto se logra mediante la implementación de políticas de seguridad que definen qué lenguajes tienen permisos para acceder a qué recursos. Este enfoque se basa en la idea de que ciertos lenguajes de programación son más seguros que otros debido a sus características y capacidades de control de acceso.
+
+## 2. Proporciona un ejemplo de cómo un lenguaje como Java o Rust asegura la memoria y evita accesos no autorizados
+
+### Gestión de la memoria en Java:
+Java utiliza un recolector de basura para manejar la memoria de manera automática. El recolector de basura identifica y elimina los objetos que ya no son accesibles por el programa, liberando así la memoria ocupada por estos objetos.
+ - Los objetos se crean en la memoria heap.
+ - Durante la ejecución del programa, el recolector de basura monitorea los objetos.
+ - Cuando un objeto ya no tiene referencias activas que lo apunten, el recolector de basura marca el objeto como basura.
+ - En un ciclo posterior, el recolector de basura libera la memoria ocupada por estos objetos.
+
+```java
+public class Example {
+      public static void main(String[] args) {
+      Example example = new Example(); }
+```
+### Accesos no autorizados en Java
+Los modificadores como private, protected y public controlan el acceso a variables y métodos.Esto restringe el acceso a miembros sensibles del objeto.
+
+```java
+public class Auto {
+    private int idAuto;
+    
+    public int getIdAuto() {
+        return idAuto;
+    }
+    
+    public void setIdAuto(int numero) {
+        this.IdAuto = numero;
+    }
+}
+```
+
+### Gestión de la memoria en Rust
+Rust es conocido por su enfoque en la seguridad de la memoria sin necesidad de un recolector de basura como en Java, Rust utiliza un sistema de propiedad que garantiza que cada valor en el programa tiene un único propietario en un punto. Este sistema asegura que la memoria sea liberada de manera segura cuando ya no es necesaria. Cada valor en Rust tiene un propietario, solo puede haber un propietario a la vez, cuando el propietario sale de alcance, el valor se libera automáticamente.
+```rust
+fn main() {
+let s = String::from("Hello, Rust!");}
+```
+
+Rust garantiza la seguridad del tipo en tiempo de compilación, evitando muchos errores comunes en otros lenguajes. 
+ - Verificación en Tiempo de Compilación: Rust comprueba en tiempo de compilación que todas las operaciones sean seguras con respecto a los tipos.
+ - Sistema de Tipos: Asegura que las variables solo se utilicen de maneras que sean seguras según su tipo declarado.
+```rust
+   fn main() {
+   let x: i32 = 10;
+   let y: f64 = 3.14;
+}
+```
+## 3. Compara este enfoque con otros mecanismos de protección en sistemas operativos
+| Característica                     | **Rust**                                        | **Control de Acceso Discrecional (DAC)**          | **Control de Acceso Obligatorio (MAC)**            | **Control de Acceso Basado en Roles (RBAC)**       |
+|------------------------------------|-------------------------------------------------|---------------------------------------------------|----------------------------------------------------|----------------------------------------------------|
+| **Seguridad de Memoria**           | Sistema de propiedad y préstamos previenen errores comunes y aseguran la memoria. | Depende de la implementación y del control del usuario propietario del recurso. | Políticas centralizadas y estrictas de acceso controlan la seguridad de la memoria. | No está directamente relacionado con la memoria, se enfoca en permisos basados en roles. |
+| **Control de Acceso**              | Propiedad y préstamos aseguran que los recursos solo se acceden de manera segura. | El propietario del recurso decide los permisos de acceso. | Las políticas de acceso son determinadas por una autoridad central y no por los propietarios. | Los permisos se asignan a roles y los usuarios se asignan a esos roles. |
+| **Prevención de Errores**          | Compilador fuerza reglas estrictas para evitar condiciones de carrera y otros errores de memoria. | La flexibilidad puede llevar a errores si no se gestiona adecuadamente. | Menor flexibilidad pero alta seguridad al seguir políticas centralizadas. | Simplifica la gestión de permisos pero depende de la correcta definición de roles. |
+| **Flexibilidad**                   | Alta flexibilidad en el manejo de la memoria sin comprometer la seguridad. | Alta flexibilidad pero requiere una gestión cuidadosa. | Menor flexibilidad debido a políticas estrictas. | Moderada flexibilidad, bien adaptado para grandes organizaciones. |
+| **Facilidad de Uso**               | Requiere aprendizaje del modelo de propiedad y préstamos, pero es potente una vez dominado. | Fácil de usar pero requiere manejo cuidadoso de permisos. | Más complejo de implementar y gestionar debido a políticas centralizadas. | Fácil de gestionar en entornos grandes con muchos usuarios y roles. |
+| **Aplicación Típica**              | Desarrollo de software seguro, sistemas embebidos, aplicaciones de alta concurrencia. | Sistemas operativos, aplicaciones con múltiples usuarios. | Entornos de alta seguridad como gubernamentales y militares. | Grandes organizaciones, sistemas empresariales con múltiples niveles de acceso. |
+
+
+# Ejercicio 6: Validación y amenazas al sistema
+
