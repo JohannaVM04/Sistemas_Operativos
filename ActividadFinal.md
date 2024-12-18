@@ -314,4 +314,134 @@ Rust garantiza la seguridad del tipo en tiempo de compilación, evitando muchos 
 
 
 # Ejercicio 6: Validación y amenazas al sistema
+## 1. Investiga y describe al menos tres tipos de amenazas comúnes (por ejemplo, malware, ataques de fuerza bruta, inyección de código)
 
+### 1. Malware
+Es una abreviación para Malicious software, es un término que utilizamos para referirnos a software que puede causar daño a un sistema, dispositivo o red. Existen varios tipos pero los más comúnes de malware son los **virus**, son programas que se replican y se van insertando en otros programas u otros archivos. Los **troyanos**, son programas que parecen archivos legítimos pero cuando se ejcutan, trabajan con funcionan maliciosas. Y por último el **ransomware**, que es un malware que bloque el acceso a los datos o al sistema y empieza a pedir un rescate para restaurar ela cceso al sistema.
+
+Un ejemplo clásico de un troyano es que te manden un correo electrónico con un archivo pdf y sea un troyano ( broma entre amigos).
+
+### 2. Ataques de Fuerza Bruta
+Es un método de fuerza bruta que en el que el atacante intenta acceder al sistema probando combinaciones de posibles credenciales hasta encontrar la correcta. Normalmente estos ataques se hacen con scripts o herramientas automatizadas que prueban las combinaciones, y, aunque es lento, también es muy efectivo si las contraseñas son cortas y sencillas.
+
+El ejemplo puede ser que un atacante use una herramienta de fuerza bruta para acceder a la cuenta de usuario en un sitio web, hasta que encuentre la combinacion de usuario y contraseña correcta.
+
+### Inyección de Código
+La inyección de código es una técnica donde el atacante modifica el código, agregando líneas que van a cambiar el comportamiento de este.
+Las dos inyecciones de código más comúnes son para bases de datos y páginas web:
+
+ - Inyección en SQL: el atacante genera una consulta SQL para acceder o manipular la base de datos.
+ - XSS: el atacante inyecta scripts maliciosos en páginas web vistas por otros usuarios.
+
+Un atacante puede utilizar vulnerabilidad de SQl para acceder a base de datos de un sitio web y extraer información sensible de los usuarios
+
+## 2. Explica los mecanismos de validación como autenticación multifactor y control de integridad.
+
+La Autentificación Multifactor (MFA) es un proceso de seguridad que requiere que los usuarios hagan dos o más verificaciónes antes de acceder a la cuenta o sistema (por ejemplo, en la autentificación de Google, se manda un número a tu celular para que lo ingreses después de ingresar tu correo y contraseña). Este método añade una capa adicional de seguridad.
+
+El control de integridad son las medidas o procesos que se agregan a un sistema para asegurar que los datos y sistemas permanezcan en un estado consistente y sin alteraciones no autorizadas. Esto incluye la protección contra modificaciones, eliminaciones y la corrupción de datos. Los métodos más comúnes son el **Checksums y Hshes**, estos utilizan algoritmos para generar un valor único basado en los datos originales. Si los datos cambian, el valor generado tambíen cambiará indicando una posible alteración, otro método es la **copia de seguridad y restauración**, se van haciendo copias de seguridad regulares de datos y sistemas para poder restaurarlos en caso de corrupción o pérdida (como la copia de seguridad de google fotos); tambíen está el **monitoreo constante**, estos implementan sistemas que vigilan constantemente los cambios en los datos y alertan sobre actividades sospechosas(como los cambios de contraseña, movimientos del banco).
+
+## 3. Diseña un esquema de validación para un sistema operativo con múltiples usuarios.
+```plaintext
+procedimiento Principal()
+    mientras Verdadero
+        usuario <- ObtenerEntradaUsuario("Ingrese su nombre de usuario: ")
+        contrasena <- ObtenerEntradaUsuario("Ingrese su contraseña: ")
+        
+        si ValidarCredenciales(usuario, contrasena) entonces
+            si RealizarAutenticacionMultifactor(usuario) entonces
+                sesion <- CrearSesion(usuario)
+                Mostrar("Bienvenido, " + usuario)
+                mientras sesion.estaActiva
+                    comando <- ObtenerEntradaUsuario("Ingrese un comando: ")
+                    si ValidarComando(comando) entonces
+                        EjecutarComando(sesion, comando)
+                    sino
+                        Mostrar("Comando no válido")
+                    fin si
+                fin mientras
+                TerminarSesion(sesion)
+            sino
+                Mostrar("Autenticación multifactor fallida.")
+            fin si
+        sino
+            Mostrar("Credenciales inválidas.")
+        fin si
+    fin mientras
+fin procedimiento
+
+procedimiento ValidarCredenciales(usuario, contrasena)
+    contrasenaAlmacenada <- ObtenerContrasenaAlmacenada(usuario)
+    return Hash(contrasena) == contrasenaAlmacenada
+fin procedimiento
+
+procedimiento RealizarAutenticacionMultifactor(usuario)
+    otp <- GenerarOTP(usuario)
+    EnviarOTPAlUsuario(usuario, otp)
+    otpIngresado <- ObtenerEntradaUsuario("Ingrese el código de autenticación: ")
+    return otp == otpIngresado
+fin procedimiento
+
+procedimiento CrearSesion(usuario)
+    sesion <- Nueva Sesion(usuario)
+    sesion.estaActiva <- Verdadero
+    sesion.tiempoInicio <- TiempoActual()
+    return sesion
+fin procedimiento
+
+procedimiento TerminarSesion(sesion)
+    sesion.estaActiva <- Falso
+    sesion.tiempoFin <- TiempoActual()
+    RegistrarDetallesDeSesion(sesion)
+fin procedimiento
+```
+# Ejercicio 7 : Cifrado
+## 1. Define los conceptos de cifrado simétrico y asimétrico
+
+El **cifrado simétrico** es una técnica donde se utiliza una única clave tanto para cifrar y descifrar la información. Esto quiere decir que el emisor y receptor debe tener la misma clave y mantenerla en secreto para asegurar la comunicación. Esta técnica es más rápida que un cifrado asimétrico, pero es menos segura porque necesita existir un alto nivel de confidencilidad, haciendo el sistema vulnerable. 
+
+El **cifrado asimétrico** utiliza dos claves, una clave única y una privada. La clave pública se usa para cifrar los datos y la clave privada corresponde para descifrarlos. 
+En esta técnica, la clave privada debe mantenerse en secreto, por lo general se utiliza para la transmición de datos seguros y en la autenticación de usuarios, pero no es práctico si estamos trabajando con alto volúmenes de datos, además de que es lento y exige muchos recursos en comparación del cifrado simétrico;ejemplos del cifrado 
+asimétrico es el RSA, DSA y ECC.
+
+## 2. Proporciona un ejemplo práctico de cada tipo de cifrado aplicado de sistemas operativos.
+
+**Bitlocker** es una característica de cifrado de disco completo para Windows, utiliza **cifrado simétrico** para proteger los datos almacenados en disco duro y memorias USB. Al inciiarlo, el sistema genera una clave simétrica,todos los datos se cifran utilizando AES, con una clave de 128 a 256 bits, para acceder a los datos cifrados, se necesita de una clave de recuperación o una autentificación multifactor como una tarjeta inteligente o una contraseña.
+
+**SSH** es un protocolo que permite acceder de manera más segura a un sistema remoto. Utiliza cifrado asimétrico para establecer una conexión segura. El usuario genera un par de clave usa un comando "ssh-keygen" El suaurio copia la clave pública al servidor remoto donde están las contraseñas, después, al inciar una sesión SSH, el cliente usa la clave pública para cifrar una clave de sesión que solo puede ser descifrada por la clave privada del usuario.
+
+## 3. Simula el proceso de cifrado y descifrado de un archivo con una clave dada
+
+### Proceso de cifrado
+```plaintext
+procedimiento CifrarArchivo(rutaArchivoEntrada, rutaArchivoSalida, clave)
+    datos <- LeerArchivo(rutaArchivoEntrada)
+    iv <- GenerarIVAleatorio()
+    datosCifrados <- AES_Cifrar(datos, clave, iv)
+    EscribirArchivo(rutaArchivoSalida, iv + datosCifrados)
+fin procedimiento
+
+procedimiento AES_Cifrar(datos, clave, iv)
+    cifrado <- AES_InicializarCifrador(clave, iv, "CBC")
+    datosCifrados <- cifrado.Cifrar(datos)
+    retornar datosCifrados
+fin procedimiento
+```
+
+### Proceso de descifrado
+```plaintext
+procedimiento DescifrarArchivo(rutaArchivoEntrada, rutaArchivoSalida, clave)
+    contenidoCifrado <- LeerArchivo(rutaArchivoEntrada)
+    iv <- ExtraerIV(contenidoCifrado)
+    datosCifrados <- ExtraerDatosCifrados(contenidoCifrado)
+    datos <- AES_Descifrar(datosCifrados, clave, iv)
+    EscribirArchivo(rutaArchivoSalida, datos)
+fin procedimiento
+
+procedimiento AES_Descifrar(datosCifrados, clave, iv)
+    descifrado <- AES_InicializarDescifrador(clave, iv, "CBC")
+    datos <- descifrado.Descifrar(datosCifrados)
+    
+    retornar datos
+fin procedimiento
+```
