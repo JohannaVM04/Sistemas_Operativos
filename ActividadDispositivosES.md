@@ -1,5 +1,6 @@
 # Actividad 1: Listar dispositivos conectados
 ## Ejecucion de los comandos
+
 johanna-velasco@johanna-velasco-VirtualBox:~$ lsblk
 NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
 loop0    7:0    0     4K  1 loop /snap/bare/5
@@ -57,8 +58,17 @@ dmesg: fallo al leer el «buffer» del núcleo: Operación no permitida
 ## Preguntas
 
 - ¿Qué tipos de dispositivos se muestran en la salida de `lsblk`?
+  El comando lsblk muestra información sobre los dispositivos de bloques en el sistema. En la salida proporcionada, se pueden ver los siguientes tipos de dispositivos:
+loop: Dispositivos de bucle, generalmente utilizados para montar imágenes de archivos y sistemas de archivos temporales (e.g., /snap/...).
+sda: Dispositivo de disco duro o SSD principal (/dev/sda) con dos particiones (sda1 y sda2).
+sr0: Dispositivo de CD-ROM o unidad de disco óptico.
+
 - ¿Cuál es la diferencia entre `lsusb` y `lspci`?
+ lsusb: Este comando lista todos los dispositivos USB conectados al sistema. Muestra detalles como el ID del fabricante y el ID del producto, así como el tipo de dispositivo USB (e.g., hubs, ratones, teclados).
+  lspci: Este comando lista todos los dispositivos PCI conectados al sistema. Muestra detalles como el nombre del fabricante, el tipo de dispositivo y su función (e.g., controladores gráficos, tarjetas de red).
+  
 - ¿Qué información adicional proporciona `dmesg | grep usb`?
+  Proporciona detalles sobre la detección y el estado de los dispositivos USB, problemas de hardware, errores y otros eventos importantes durante el arranque y el funcionamiento del sistema.
 
 # Actividad 2: Verificar dispositivos de almacenamiento
 
@@ -97,8 +107,12 @@ johanna-velasco@johanna-velasco-VirtualBox:~$
 ## Preguntas 
 
  - ¿Qué dispositivos de almacenamiento están conectados a su sistema?
+   sda: Este es el dispositivo de disco principal de 25 GB
  - ¿Qué particiones están montadas actualmente?
+   sda2 y tmpfs
  - ¿Qué tipo de sistemas de archivos se usan en las particiones?
+   /dev/sda2: Sistema de archivos ext4.
+   tmpfs: Sistema de archivos temporal 
 
 # Actividad 3: Explorar dispositivos de entrada
 ## Comandos
@@ -117,7 +131,23 @@ Available devices:
 ## Preguntas
 
  - ¿Qué eventos genera cada dispositivo al interactuar con ellos?
+   En orden:
+   Encender, apagar o suspender el sistema
+   Poner el sistema en modo de suspensión o hibernación.
+   Gestión de la configuración y eventos de video.
+   Emulación de una tableta táctil en entornos virtualizados
+   Interacción con el sistema a través del ratón.
+   Mejora de la integración y sincronización del puntero del ratón en entornos virtualizados.
+  
+   
  - ¿Cómo se identifican los dispositivos en `/proc/bus/input/devices`?
+   I: Información del bus y del dispositivo, incluyendo el identificador del bus, el proveedor y el producto.
+   N: Nombre del dispositivo.
+   P: Dirección física del dispositivo.
+   S: Ruta en el sistema de archivos sysfs.
+   U: Información única del dispositivo, si la hay.
+   H: Controladores asociados con el dispositivo (por ejemplo, kbd para teclado, mouse para ratón).
+   B: Capacidades del dispositivo en términos de propiedades (PROP), eventos (EV), teclas (KEY), etc.
    
 # Actividad 4: Examinar dispositivos de salida
 ## Comandos
@@ -143,9 +173,11 @@ wireplumb 1934 johanna-velasco   35u   CHR  116,5      0t0  719 /dev/snd/control
 ## Preguntas
 
  - ¿Qué salidas de video están disponibles en su sistema?
+   No hubo ninguna ya que no había un entorno conectado
  - ¿Qué dispositivos de sonido se detectaron?
+   Intel ICH [Intel 82801AA-ICH] con un subdispositivo disponible
  - ¿Qué procesos están usando la tarjeta de sonido?
-
+   pipewire (PID 1929): Utiliza /dev/snd/seq y wireplumber (PID 1934): Utiliza /dev/snd/controlC0
 
 # Actividad 5: Crear un script de resumen
 
@@ -279,5 +311,16 @@ tarjeta 0: I82801AAICH [Intel 82801AA-ICH], dispositivo 0: Intel ICH [Intel 8280
 ## Preguntas
 
  - ¿Qué ventajas tiene usar un script para recopilar esta información?
+   La información se puede obtener de forma automatizada, además de que es fácil de usarse y es consistente si lo comparamos con la información si la buscamos directamente ejecutando comandos en la consola, es eficiente y además podemos incluir comentarios al ascript para recordar qué hace cada comando (documentación)
  - ¿Qué cambios realizaría para personalizar el script?
+   Podemos agregarle un menú interactivo para seleccionar que cúal es la información que queremos solicitar en ese momento y no que solamente imrprima todo cada vez que se abre
 
+# Actividad 6: Reflexión y discusión
+## Preguntas 
+
+ - ¿Qué comando encontró más útil y por qué?
+Considero que el comando más util es el lsblk, ya que es el que tiene la mejor estructura al mostrar los dispositivos, aparte de que da información sobre cada partición y nos muestra la información suficiente para encontrar problemas en el almacenamiento
+ - ¿Qué tan importante es conocer los dispositivos conectados al sistema?
+   Porque esto nos ayuda a saber, por ejemplo, por qué el rendimiento de la computadora es menor (probablemente muchos procesos y pocos recursos para todos), para mantenimiento y por seguridad, ya que pueden entrar dispositivos sospechosos o malware
+ - ¿Cómo podrían estos conocimientos aplicarse en la administración de sistemas?
+   Podríamos hacer una optimización de recursos, sabiendo cómo usamos los dispositivos para posibles actualizaciones futuras de hardware.
