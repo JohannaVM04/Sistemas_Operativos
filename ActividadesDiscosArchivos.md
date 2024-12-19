@@ -181,3 +181,58 @@ drwxr-xr-x 2 johanna-velasco johanna-velasco 4096 oct 30 14:19 Vídeos
 mié 18 dic 2024 17:55:44 CST
 johanna-velasco@johanna-velasco-VirtualBox:~$ 
 
+# Ejercicio 3: Copiar y mover archivos
+
+johanna-velasco@johanna-velasco-VirtualBox:~$ echo "Este es un archivo de prueba" > archivo1.txt
+johanna-velasco@johanna-velasco-VirtualBox:~$ cp archivo1.txt /tmp/
+johanna-velasco@johanna-velasco-VirtualBox:~$ mv /tmp/archivo1.txt /tmp/archivo2.txt
+johanna-velasco@johanna-velasco-VirtualBox:~$ mv /tmp/archivo2.txt
+mv: falta el operando archivo de destino después de '/tmp/archivo2.txt'
+Pruebe 'mv --help' para más información.
+johanna-velasco@johanna-velasco-VirtualBox:~$ pwd
+/home/johanna-velasco
+johanna-velasco@johanna-velasco-VirtualBox:~$ mv /tmp/archivo2.txt /tmp/home/johanna-velasco
+mv: no se puede mover '/tmp/archivo2.txt' a '/tmp/home/johanna-velasco': No existe el archivo o el directorio
+johanna-velasco@johanna-velasco-VirtualBox:~$ mv /tmp/archivo2.txt /tmp/home
+
+# Ejercicio 4: Comprimir y descomprimir archivos
+
+johanna-velasco@johanna-velasco-VirtualBox:~$ mkdir backup
+johanna-velasco@johanna-velasco-VirtualBox:~$ cp archivo.txt backup/
+johanna-velasco@johanna-velasco-VirtualBox:~$ cp archivo2.txt backup/
+cp: no se puede efectuar `stat' sobre 'archivo2.txt': No existe el archivo o el directorio
+johanna-velasco@johanna-velasco-VirtualBox:~$ cp /home/archivo2.txt backup/
+cp: no se puede efectuar `stat' sobre '/home/archivo2.txt': No existe el archivo o el directorio
+johanna-velasco@johanna-velasco-VirtualBox:~$ tar -czvf backup.tzr.gz backup/
+backup/
+backup/archivo.txt
+johanna-velasco@johanna-velasco-VirtualBox:~$ tar -czvf backup.tar.gz backup/
+backup/
+backup/archivo.txt
+johanna-velasco@johanna-velasco-VirtualBox:~$ tar -xzvf backup.tar.gz
+backup/
+backup/archivo.txt
+
+# Ejercicio 5: Permisos y Propiedades de Archivos
+johanna-velasco@johanna-velasco-VirtualBox:~$ touch privado.txt
+johanna-velasco@johanna-velasco-VirtualBox:~$ chmod 600 privado.txt
+johanna-velasco@johanna-velasco-VirtualBox:~$ sudo chown root privado.txt
+[sudo] contraseña para johanna-velasco: 
+
+# Ejercicio 6: Exploración de Dispositivos
+
+johanna-velasco@johanna-velasco-VirtualBox:~$ du -sh /home
+1,2G	/home
+johanna-velasco@johanna-velasco-VirtualBox:~$ df -h
+S.ficheros     Tamaño Usados  Disp Uso% Montado en
+tmpfs            1,1G   1,7M  1,1G   1% /run
+/dev/sda2         25G    13G   12G  53% /
+tmpfs            5,2G   4,0K  5,2G   1% /dev/shm
+tmpfs            5,0M   8,0K  5,0M   1% /run/lock
+tmpfs            1,1G   2,5M  1,1G   1% /run/user/1000
+/dev/sdb1         29G   971M   28G   4% /media/johanna-velasco/KINGSTON
+
+# Ejercicio 7: Crear y Formatear Particiones
+
+
+
