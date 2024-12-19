@@ -234,5 +234,24 @@ tmpfs            1,1G   2,5M  1,1G   1% /run/user/1000
 
 # Ejercicio 7: Crear y Formatear Particiones
 
+johanna-velasco@johanna-velasco-VirtualBox:~$ sudo fdisk -l /dev/sdb
+[sudo] contraseña para johanna-velasco: 
+Disco /dev/sdb: 28,87 GiB, 30995907072 bytes, 60538881 sectores
+Disk model: DataTraveler 3.0
+Unidades: sectores de 1 * 512 = 512 bytes
+Tamaño de sector (lógico/físico): 512 bytes / 512 bytes
+Tamaño de E/S (mínimo/óptimo): 512 bytes / 512 bytes
+Tipo de etiqueta de disco: dos
+Identificador del disco: 0x0087e7a9
+
+Dispositivo Inicio Comienzo    Final Sectores Tamaño Id Tipo
+/dev/sdb1              2048 60538880 60536833  28,9G  5 Extendida
+/dev/sdb5              4096 60538880 60534785  28,9G 83 Linux
+johanna-velasco@johanna-velasco-VirtualBox:~$ sudo mkfs.ext4 /dev/sdb5
+johanna-velasco@johanna-velasco-VirtualBox:~$ sudo mount /dev/sdb5 /mnt/nueva_particion 
+johanna-velasco@johanna-velasco-VirtualBox:~$ echo "Prueba de escritura" > /mnt/nueva_particion/test.txt
+
+
+
 
 
